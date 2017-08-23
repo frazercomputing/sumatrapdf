@@ -344,6 +344,7 @@ void AbortFinding(WindowInfo *win, bool hideMessage)
 
 void FindTextOnThread(WindowInfo* win, TextSearchDirection direction, bool showProgress)
 {
+	win->AsFixed()->textSearch->SetSensitive(false);
     AbortFinding(win, true);
 
     FindThreadData *ftd = new FindThreadData(win, direction, win->hwndFindBox);

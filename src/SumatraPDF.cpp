@@ -2448,7 +2448,7 @@ static void OnMenuSaveAs(WindowInfo& win)
         free(realDstFileName);
     }
 }
-
+/*
 static void OnMenuRenameFile(WindowInfo &win)
 {
     if (!HasPermission(Perm_DiskAccess)) return;
@@ -2520,7 +2520,7 @@ static void OnMenuRenameFile(WindowInfo &win)
     args.forceReuse = true;
     LoadDocument(args);
 }
-
+*/
 static void OnMenuSaveBookmark(WindowInfo& win)
 {
     if (!HasPermission(Perm_DiskAccess) || gPluginMode) return;
@@ -3798,7 +3798,7 @@ static LRESULT FrameOnCommand(WindowInfo *win, HWND hwnd, UINT msg, WPARAM wPara
     {
         case IDM_OPEN:
         case IDT_FILE_OPEN:
-            OnMenuOpen(*win);
+            // OnMenuOpen(*win);
             break;
 
         case IDM_SAVEAS:
@@ -3806,7 +3806,7 @@ static LRESULT FrameOnCommand(WindowInfo *win, HWND hwnd, UINT msg, WPARAM wPara
             break;
 
         case IDM_RENAME_FILE:
-            OnMenuRenameFile(*win);
+            // OnMenuRenameFile(*win);
             break;
 
         case IDT_FILE_PRINT:

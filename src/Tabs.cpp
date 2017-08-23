@@ -766,6 +766,9 @@ LRESULT TabsOnNotify(WindowInfo* win, LPARAM lparam, int tab1, int tab2) {
             } else {
                 RemoveTab(win, tab1);
             }
+			if (win->tabs.Count() <= 0) {
+				CloseWindow(win, true);
+			}
             break;
 
         case T_DRAG:
