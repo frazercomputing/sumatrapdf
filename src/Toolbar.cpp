@@ -46,15 +46,17 @@ static ToolbarButtonInfo gToolbarButtons[] = {
 // the Open button is replaced with a Save As button in Plugin mode:
     { 12,  IDM_SAVEAS,            _TRN("Save As"),        MF_REQ_DISK_ACCESS },
     { 1,   IDM_PRINT,             _TRN("Print"),          MF_REQ_PRINTER_ACCESS },
-    { -1,  IDM_GOTO_PAGE,         nullptr,                   0 },
+    { -1,  IDM_GOTO_PAGE,         nullptr,                0 },
+	{ 13,  IDM_GOTO_FIRST_PAGE,   "First Page",			  0 },
     { 2,   IDM_GOTO_PREV_PAGE,    _TRN("Previous Page"),  0 },
     { 3,   IDM_GOTO_NEXT_PAGE,    _TRN("Next Page"),      0 },
-    { -1,  0,                     nullptr,                   0 },
+	{ 14,  IDM_GOTO_LAST_PAGE,    "Last Page",			  0 },
+    { -1,  0,                     nullptr,                0 },
     { 4,   IDT_VIEW_FIT_WIDTH,    _TRN("Fit Width and Show Pages Continuously"), 0 },
     { 5,   IDT_VIEW_FIT_PAGE,     _TRN("Fit a Single Page"), 0 },
     { 6,   IDT_VIEW_ZOOMOUT,      _TRN("Zoom Out"),       0 },
     { 7,   IDT_VIEW_ZOOMIN,       _TRN("Zoom In"),        0 },
-    { -1,  IDM_FIND_FIRST,        nullptr,                   0 },
+    { -1,  IDM_FIND_FIRST,        nullptr,                0 },
     { 8,   IDM_FIND_PREV,         _TRN("Find Previous"),  0 },
     { 9,   IDM_FIND_NEXT,         _TRN("Find Next"),      0 },
 //  { 10,  IDM_FIND_MATCH,        _TRN("Match Case"),     0 },
@@ -115,8 +117,10 @@ static bool IsToolbarButtonEnabled(WindowInfo *win, int buttonNo)
         return win::GetTextLen(win->hwndFindBox) > 0;
 
     case IDM_GOTO_NEXT_PAGE:
+	case IDM_GOTO_LAST_PAGE:
         return win->ctrl->CurrentPageNo() < win->ctrl->PageCount();
     case IDM_GOTO_PREV_PAGE:
+	case IDM_GOTO_FIRST_PAGE:
         return win->ctrl->CurrentPageNo() > 1;
 
     default:
