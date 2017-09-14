@@ -1586,6 +1586,12 @@ WindowInfo* LoadDocument(LoadArgs& args)
     if (HasPermission(Perm_DiskAccess) && !gPluginMode && !IsStressTesting())
         SHAddToRecentDocs(SHARD_PATH, fullPath);
 
+	// Set the title from the PDF's metadata field
+	if (ctrl && ctrl->GetProperty(Prop_Title)) {
+		currTab->title = ctrl->GetProperty(Prop_Title);
+		ReloadDocument(win, true);
+	}
+
     return win;
 }
 
