@@ -31,6 +31,8 @@ class TabInfo {
     // previous View settings, needed when unchecking the Fit Width/Page toolbar buttons
     float prevZoomVirtual = INVALID_ZOOM;
     DisplayMode prevDisplayMode = DM_AUTOMATIC;
+	// Title (uses filename if null)
+	WCHAR* title = nullptr;
 
     TabInfo(const WCHAR* filePath = nullptr);
     ~TabInfo();

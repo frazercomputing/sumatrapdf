@@ -45,6 +45,10 @@ EngineType TabInfo::GetEngineType() const {
 }
 
 const WCHAR* TabInfo::GetTabTitle() const {
+	// If there is a title, we should use that
+	if (title && wcslen(title)>0) {
+		return title;
+	}
     if (gGlobalPrefs->fullPathInTitle) {
         return filePath;
     }
