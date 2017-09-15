@@ -1589,6 +1589,7 @@ WindowInfo* LoadDocument(LoadArgs& args)
 	// Set the title from the PDF's metadata field
 	if (ctrl && ctrl->GetProperty(Prop_Title)) {
 		currTab->title = ctrl->GetProperty(Prop_Title);
+		currTab->createDate = ctrl->GetProperty(Prop_CreationDate);
 		ReloadDocument(win, true);
 	}
 
@@ -2279,6 +2280,19 @@ static bool AppendFileFilterForDoc(Controller *ctrl, str::Str<WCHAR>& fileFilter
     return true;
 }
 
+// copied from SumatraProperties.cpp
+static bool PdfDateParse(const WCHAR *pdfDate, SYSTEMTIME *timeOut)
+{
+	ZeroMemory(timeOut, sizeof(SYSTEMTIME));
+	// "D:" at the beginning is optional
+	if (str::StartsWith(pdfDate, L"D:"))
+		pdfDate += 2;
+	return str::Parse(pdfDate, L"%4d%2d%2d" L"%2d%2d%2d",
+		&timeOut->wYear, &timeOut->wMonth, &timeOut->wDay,
+		&timeOut->wHour, &timeOut->wMinute, &timeOut->wSecond) != nullptr;
+	// don't bother about the day of week, we won't display it anyway
+}
+
 static void OnMenuSaveAs(WindowInfo& win)
 {
     if (!HasPermission(Perm_DiskAccess)) return;
@@ -2291,6 +2305,19 @@ static void OnMenuSaveAs(WindowInfo& win)
         // fall back to a generic "filename" instead of the more confusing temporary filename
         srcFileName = urlName ? urlName : L"filename";
     }
+	// Try to save using the title if we have one (and add a timestamp if we have one of those too)
+	if (win.currentTab->title) {
+		if (win.currentTab->createDate) {
+			WCHAR filename[500];
+			SYSTEMTIME timestamp;
+			PdfDateParse(win.currentTab->createDate, &timestamp);
+			swprintf(filename, 500, L"%s %i-%02i-%02i %02i%02i.pdf", win.currentTab->title, timestamp.wYear, timestamp.wMonth, timestamp.wDay, timestamp.wHour, timestamp.wMinute);
+			srcFileName = filename;
+		}
+		else {
+			srcFileName = win.currentTab->title;
+		}
+	}
 
     AssertCrash(srcFileName);
     if (!srcFileName) return;

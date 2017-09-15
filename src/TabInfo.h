@@ -33,6 +33,8 @@ class TabInfo {
     DisplayMode prevDisplayMode = DM_AUTOMATIC;
 	// Title (uses filename if null)
 	WCHAR* title = nullptr;
+	// Also store the creation date so we can include it in the save name
+	WCHAR* createDate = nullptr;
 
     TabInfo(const WCHAR* filePath = nullptr);
     ~TabInfo();
