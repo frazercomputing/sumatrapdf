@@ -1589,6 +1589,9 @@ WindowInfo* LoadDocument(LoadArgs& args)
 		ReloadDocument(win, true);
 	}
 
+	Sleep(100);
+	BringWindowToTop(win->hwndFrame);
+
     return win;
 }
 
