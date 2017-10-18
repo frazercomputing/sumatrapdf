@@ -912,17 +912,13 @@ static void SetFrameTitleForTab(TabInfo *tab, bool needRefresh)
             str::NormalizeWS(title);
             docTitle.Set(title);
             if (!str::IsEmpty(title)) {
-                docTitle.Set(str::Format(L"- [%s] ", title));
+                docTitle.Set(str::Format(L"%s", title));
             }
         }
     }
 
-    if (!IsUIRightToLeft()) {
-        tab->frameTitle.Set(str::Format(L"%s %s- %s", titlePath, docTitle, SUMATRA_WINDOW_TITLE));
-    } else {
-        // explicitly revert the title, so that filenames aren't garbled
-        tab->frameTitle.Set(str::Format(L"%s %s- %s", SUMATRA_WINDOW_TITLE, docTitle, titlePath));
-    }
+    tab->frameTitle.Set(str::Format(L"%s - %s", docTitle, SUMATRA_WINDOW_TITLE));
+
     if (needRefresh && tab->ctrl) {
         // TODO: this isn't visible when tabs are used
         tab->frameTitle.Set(str::Format(_TR("[Changes detected; refreshing] %s"), tab->frameTitle));
