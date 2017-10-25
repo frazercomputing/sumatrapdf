@@ -26,10 +26,26 @@
     <None Include="..\docs\releaseplan.txt">
       <Filter>docs</Filter>
     </None>
+    <None Include="..\src\dragcursor.cur" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\src\SumatraPDF.rc">
       <Filter>src</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\src\SumatraPDF-smaller.ico" />
+    <Image Include="..\src\PdfDoc.ico" />
+    <Image Include="..\src\toolbar_11.bmp" />
+    <Image Include="..\src\reloading.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\src\EbookWinDesc.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="..\src\SumatraPDF.exe.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\resource.h" />
   </ItemGroup>
 </Project>

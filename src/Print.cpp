@@ -780,7 +780,7 @@ static void ApplyPrintSettings(const WCHAR* printerName, const WCHAR* settings, 
     }
 }
 
-bool PrintFile(BaseEngine* engine, WCHAR* printerName, bool displayErrors, const WCHAR* settings) {
+bool PrintFile(BaseEngine* engine, WCHAR* printerName, bool displayErrors, const WCHAR* settings, WindowInfo* win) {
     bool ok = false;
     if (!HasPermission(Perm_PrinterAccess)) {
         return false;
@@ -806,10 +806,13 @@ bool PrintFile(BaseEngine* engine, WCHAR* printerName, bool displayErrors, const
 
     HANDLE printer;
     BOOL res = OpenPrinter(printerName, &printer, nullptr);
-    if (!res) {
-        if (displayErrors) {
-            MessageBoxWarning(nullptr, _TR("Printer with given name doesn't exist"), _TR("Printing problem."));
-        }
+    if (!res) { 
+		if (win) {
+			OnMenuPrint(win);
+		}
+		else if (displayErrors) {
+			MessageBoxWarning(nullptr, _TR("Printer with given name doesn't exist"), _TR("Printing problem."));
+		}
         return false;
     }
 
@@ -864,11 +867,17 @@ bool PrintFile(BaseEngine* engine, WCHAR* printerName, bool displayErrors, const
 
         ApplyPrintSettings(printerName, settings, engine->PageCount(), ranges, advanced, devMode);
 
-        PrintData pd(engine, infoData, devMode, ranges, advanced);
-        ok = PrintToDevice(pd);
-        if (!ok && displayErrors) {
-            MessageBoxWarning(nullptr, _TR("Couldn't initialize printer"), _TR("Printing problem."));
-        }
+		if (win) {
+			PrintData* pd = new PrintData(engine, infoData, devMode, ranges, advanced);
+			PrintToDeviceOnThread(win, pd);
+		}
+		else {
+			PrintData pd(engine, infoData, devMode, ranges, advanced);
+			ok = PrintToDevice(pd);
+			if (!ok && displayErrors) {
+				MessageBoxWarning(nullptr, _TR("Couldn't initialize printer"), _TR("Printing problem."));
+			}
+		}
     }
 
 Exit:

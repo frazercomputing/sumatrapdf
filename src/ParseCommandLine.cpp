@@ -209,7 +209,8 @@ static const char* argNames =
     "manga-mode\0"
     "autoupdate\0"
     "extract-text\0"
-    "silent\0";
+    "silent\0"
+	"default-printer\0";
 
 enum {
     RegisterForPdf,
@@ -256,7 +257,8 @@ enum {
     MangaMode,
     AutoUpdate,
     ExtractText,
-    Silent
+    Silent,
+	DefaultPrinter
 };
 
 static int GetArgNo(const WCHAR* argName) {
@@ -423,7 +425,9 @@ void CommandLineInfo::ParseCommandLine(const WCHAR* cmdLine) {
             globalPrefArgs.Append(str::Dup(argList.At(n)));
             globalPrefArgs.Append(str::Dup(argList.At(++n)));
             globalPrefArgs.Append(str::Dup(argList.At(++n)));
-        }
+        } else if (is_arg_with_param(DefaultPrinter)) {
+			handle_string_param(defaultPrinterName);
+		}
 #ifdef DEBUG
         else if (ArgEnumPrinters == arg) {
             EnumeratePrinters();

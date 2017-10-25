@@ -3846,6 +3846,17 @@ static LRESULT FrameOnCommand(WindowInfo *win, HWND hwnd, UINT msg, WPARAM wPara
             OnMenuPrint(win);
             break;
 
+		case IDM_PRINT_SINGLE:
+		case IDM_PRINT_DEFAULT:
+			if (win->defaultPrinterName) {
+				BaseEngine* engine = win->AsFixed()->GetEngine();
+				PrintFile(engine, win->defaultPrinterName, true, wmId==IDM_PRINT_SINGLE ? std::to_wstring(win->currPageNo).c_str() : L"", win);
+			}
+			else {
+				OnMenuPrint(win);
+			}
+			break;
+
         case IDM_CLOSE:
         case IDT_FILE_EXIT:
             CloseTab(win);

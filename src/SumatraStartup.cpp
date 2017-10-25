@@ -758,6 +758,10 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
             goto Exit;
     }
 
+	// Free any old name that might exist
+	free(win->defaultPrinterName);
+	win->defaultPrinterName = i.defaultPrinterName.StealData();
+
     // Make sure that we're still registered as default,
     // if the user has explicitly told us to be
     if (gGlobalPrefs->associatedExtensions)
