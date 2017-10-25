@@ -42,24 +42,23 @@ struct ToolbarButtonInfo {
 };
 
 static ToolbarButtonInfo gToolbarButtons[] = {
-//  { 0,   IDM_OPEN,              _TRN("Open"),           MF_REQ_DISK_ACCESS },
-// the Open button is replaced with a Save As button in Plugin mode:
-    { 12,  IDM_SAVEAS,            _TRN("Save As"),        MF_REQ_DISK_ACCESS },
-    { 1,   IDM_PRINT,             _TRN("Print"),          MF_REQ_PRINTER_ACCESS },
-    { -1,  IDM_GOTO_PAGE,         nullptr,                0 },
+    { 1,   IDM_PRINT,             "Print Using Print Dialog", MF_REQ_PRINTER_ACCESS },
+	{ 15,  IDM_PRINT_DEFAULT,     "Directly Print Full Document to Report Printer", MF_REQ_PRINTER_ACCESS },
+	{ 16,  IDM_PRINT_SINGLE,      "Directly Print Current Page to Report Printer", MF_REQ_PRINTER_ACCESS },
+	{ 12,  IDM_SAVEAS,            _TRN("Save As"),        MF_REQ_DISK_ACCESS },
+	{ -1,  IDM_GOTO_PAGE,         nullptr,                0 },
 	{ 13,  IDM_GOTO_FIRST_PAGE,   "First Page",			  0 },
     { 2,   IDM_GOTO_PREV_PAGE,    _TRN("Previous Page"),  0 },
     { 3,   IDM_GOTO_NEXT_PAGE,    _TRN("Next Page"),      0 },
 	{ 14,  IDM_GOTO_LAST_PAGE,    "Last Page",			  0 },
     { -1,  0,                     nullptr,                0 },
-    { 4,   IDT_VIEW_FIT_WIDTH,    _TRN("Fit Width and Show Pages Continuously"), 0 },
-    { 5,   IDT_VIEW_FIT_PAGE,     _TRN("Fit a Single Page"), 0 },
+	{ 7,   IDT_VIEW_ZOOMIN,       _TRN("Zoom In"),        0 },
     { 6,   IDT_VIEW_ZOOMOUT,      _TRN("Zoom Out"),       0 },
-    { 7,   IDT_VIEW_ZOOMIN,       _TRN("Zoom In"),        0 },
+	{ 4,   IDT_VIEW_FIT_WIDTH,    _TRN("Fit Width and Show Pages Continuously"), 0 },
+	{ 5,   IDT_VIEW_FIT_PAGE,     _TRN("Fit a Single Page"), 0 },
     { -1,  IDM_FIND_FIRST,        nullptr,                0 },
     { 8,   IDM_FIND_PREV,         _TRN("Find Previous"),  0 },
     { 9,   IDM_FIND_NEXT,         _TRN("Find Next"),      0 },
-//  { 10,  IDM_FIND_MATCH,        _TRN("Match Case"),     0 },
 };
 
 #define TOOLBAR_BUTTONS_COUNT dimof(gToolbarButtons)
@@ -131,7 +130,7 @@ static bool IsToolbarButtonEnabled(WindowInfo *win, int buttonNo)
 static TBBUTTON TbButtonFromButtonInfo(int i) {
     TBBUTTON tbButton = { 0 };
     tbButton.idCommand = gToolbarButtons[i].cmdId;
-    if (TbIsSeparator(gToolbarButtons[i])) {
+	if (TbIsSeparator(gToolbarButtons[i])) {
         tbButton.fsStyle = TBSTYLE_SEP;
     } else {
         tbButton.iBitmap = gToolbarButtons[i].bmpIndex;
@@ -347,7 +346,7 @@ void UpdateToolbarFindText(WindowInfo *win)
     WindowRect findWndRect(win->hwndFindBg);
 
     RECT r;
-    SendMessage(win->hwndToolbar, TB_GETRECT, IDT_VIEW_ZOOMIN, (LPARAM)&r);
+    SendMessage(win->hwndToolbar, TB_GETRECT, IDT_VIEW_FIT_PAGE, (LPARAM)&r);
     int pos_x = r.right + 10;
     int pos_y = (r.bottom - findWndRect.dy) / 2;
 
@@ -488,7 +487,7 @@ void UpdateToolbarPageText(WindowInfo *win, int pageCount, bool updateOnly)
     WindowRect pageWndRect(win->hwndPageBg);
 
     RECT r;
-    SendMessage(win->hwndToolbar, TB_GETRECT, IDM_PRINT, (LPARAM)&r);
+    SendMessage(win->hwndToolbar, TB_GETRECT, IDM_SAVEAS, (LPARAM)&r);
     int pos_x = r.right + 10;
     int pos_y = (r.bottom - pageWndRect.dy) / 2;
 

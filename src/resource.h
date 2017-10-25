@@ -19,6 +19,7 @@
 #define IDM_CLOSE                       401
 #define IDM_SAVEAS                      402
 #define IDM_PRINT                       403
+#define IDM_PRINT_DEFAULT               404
 #define IDM_EXIT                        405
 #define IDM_REFRESH                     406
 #define IDM_SAVEAS_BOOKMARK             407
@@ -38,6 +39,7 @@
 #define IDM_VIEW_FULLSCREEN             421
 #define IDM_SELECT_ALL                  422
 #define IDM_VIEW_SHOW_HIDE_MENUBAR      423
+#define IDM_PRINT_SINGLE                424
 #define IDM_COPY_IMAGE                  427
 #define IDM_COPY_LINK_TARGET            428
 #define IDM_COPY_COMMENT                429
@@ -163,7 +165,6 @@
 #define IDC_TABBAR                      1110
 #define IDB_TOOLBAR                     2000
 #define IDB_RELOADING_CUE               2010
-// TODO: which of these are (still) needed?
 #define IDT_FILE_NEW                    3000
 #define IDT_FILE_OPEN                   3001
 #define IDT_FILE_METAPATH               3002
@@ -198,13 +199,13 @@
 #define IDC_STATIC                      -1
 
 // Next default values for new objects
-//
+// 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NO_MFC                     1
 #define _APS_NEXT_RESOURCE_VALUE        141
 #define _APS_NEXT_COMMAND_VALUE         32771
 #define _APS_NEXT_CONTROL_VALUE         1080
-#define _APS_NEXT_SYMED_VALUE           110
+#define _APS_NEXT_SYMED_VALUE           112
 #endif
 #endif

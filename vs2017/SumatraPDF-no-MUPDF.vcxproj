@@ -369,6 +369,24 @@
       <Project>{0A466F79-7625-EE14-7F3D-79EBEB9B5476}</Project>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\src\PdfDoc.ico" />
+    <Image Include="..\src\reloading.bmp" />
+    <Image Include="..\src\SumatraPDF-smaller.ico" />
+    <Image Include="..\src\toolbar_11.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\src\EbookWinDesc.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="..\src\SumatraPDF.exe.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\src\dragcursor.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\resource.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
