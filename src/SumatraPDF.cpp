@@ -135,6 +135,7 @@ static void CloseDocumentInTab(WindowInfo *win, bool keepUIEnabled=false, bool d
 static void UpdatePageInfoHelper(WindowInfo *win, NotificationWnd *wnd=nullptr, int pageNo=-1);
 static bool SidebarSplitterCb(void *ctx, bool done);
 static bool FavSplitterCb(void *ctx, bool done);
+void CALLBACK BringToFront(_In_ HWND hwnd, _In_ UINT, _In_ UINT_PTR, _In_ DWORD);
 
 void SetCurrentLang(const char *langCode)
 {
@@ -1589,10 +1590,13 @@ WindowInfo* LoadDocument(LoadArgs& args)
 		ReloadDocument(win, true);
 	}
 
-	Sleep(100);
-	BringWindowToTop(win->hwndFrame);
+	SetTimer(win->hwndFrame, 12345, 1000, BringToFront);
 
     return win;
+}
+
+void CALLBACK BringToFront(_In_ HWND hwnd, _In_ UINT, _In_ UINT_PTR, _In_ DWORD) {
+	BringWindowToTop(hwnd);
 }
 
 // Loads document data into the WindowInfo.
