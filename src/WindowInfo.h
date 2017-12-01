@@ -224,7 +224,7 @@ public:
     SumatraUIAutomationProvider * uia_provider = nullptr;
 
 	// Default printer, may get updated anytime a new document is opened
-	WCHAR* defaultPrinterName;
+	WCHAR* defaultPrinterName = nullptr;
 
     void  UpdateCanvasSize();
     SizeI GetViewPortSize();
