@@ -4,6 +4,7 @@
 //
 #define IDI_SUMATRAPDF                  1
 #define IDI_PDFDOC                      2
+#define IDT_TIMER_BRING_TO_FRONT        112
 #define IDD_DIALOG_GOTO_PAGE            129
 #define IDD_DIALOG_GET_PASSWORD         130
 #define IDD_DIALOG_PDF_ASSOCIATE        131
@@ -206,6 +207,6 @@
 #define _APS_NEXT_RESOURCE_VALUE        141
 #define _APS_NEXT_COMMAND_VALUE         32771
 #define _APS_NEXT_CONTROL_VALUE         1080
-#define _APS_NEXT_SYMED_VALUE           112
+#define _APS_NEXT_SYMED_VALUE           113
 #endif
 #endif
