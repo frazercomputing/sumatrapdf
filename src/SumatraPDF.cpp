@@ -1590,13 +1590,15 @@ WindowInfo* LoadDocument(LoadArgs& args)
 		ReloadDocument(win, true);
 	}
 
-	SetTimer(win->hwndFrame, 12345, 1000, BringToFront);
+	SetTimer(win->hwndFrame, IDT_TIMER_BRING_TO_FRONT, 1000, BringToFront);
 
     return win;
 }
 
 void CALLBACK BringToFront(_In_ HWND hwnd, _In_ UINT, _In_ UINT_PTR, _In_ DWORD) {
 	BringWindowToTop(hwnd);
+	// We're using this a one shot timer, so dispose of it now that it has fired
+	KillTimer(hwnd, IDT_TIMER_BRING_TO_FRONT);
 }
 
 // Loads document data into the WindowInfo.
